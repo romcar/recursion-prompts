@@ -7,27 +7,93 @@
 // Example: 5! = 5 x 4 x 3 x 2 x 1 = 120
 // factorial(5); // 120
 var factorial = function(n) {
+  if(n < 0){
+    return null;
+  }
+
+  if(n === 0){
+    return 1;
+  }
+  return n * factorial (n-1);
 };
 
 // 2. Compute the sum of an array of integers.
 // sum([1,2,3,4,5,6]); // 21
 var sum = function(array) {
+  if(array.length === 0){
+    return 0;
+  }
+
+  if(array.length === 1){
+    return array[0];
+  }
+
+  let temp = array.slice();
+  let int = temp.pop();
+  let x = temp.length;
+
+  temp[x-1] = int + temp[x-1];
+  return sum(temp);
 };
 
 // 3. Sum all numbers in an array containing nested arrays.
 // arraySum([1,[2,3],[[4]],5]); // 15
 var arraySum = function(array) {
+  var total = 0;
+
+  //for each item
+  array.forEach(function(item){
+    //check if its a number
+    if(typeof item === 'number'){
+      //add that number to the total
+      total += Number(item);
+    }
+
+    //if the element is an array
+    if(Array.isArray(item)){
+      //pass the elemnt recursively and add the return to the total.
+      total = Number(total + arraySum(item));
+    }
+  });
+  return total;
 };
 
 // 4. Check if a number is even.
 var isEven = function(n) {
+  //if n is negative step is +2 if n is positive step is -2.
+  //Our goal is to reach exactly 0
+  let step = n < 0 ? (2) : (-2);
+
+  //base case
+  if(n === 0){
+    return true;
+  } else if( n === 1 || n === -1){
+    //if it doesn't quite reach zero, then its odd.
+    return false;
+  }
+  //recursive step
+  return isEven(n + step);
 };
 
 // 5. Sum all integers below a given integer.
 // sumBelow(10); // 45
 // sumBelow(7); // 21
 var sumBelow = function(n) {
-};
+  //is n negative or positive?
+  let step = n < 0 ? (1) : (-1);
+
+  // is n = 0? if not use step to increment/decrement
+  n = n === 0 ? n : n + step;
+
+  let sum = n;
+  //base case
+  if(n === 0){
+    return sum;
+  }
+  //recursive call
+  return sum + sumBelow(n);
+
+}
 
 // 6. Get the integers within a range (x, y).
 // range(2,9); // [3,4,5,6,7,8]
