@@ -183,12 +183,56 @@ var modulo = function(x, y) {
 
 // 12. Write a function that multiplies two numbers without using the * operator or
 // Math methods.
+  //base case.
+  //if both x and y are negative the product is positive
+    //if x is negative and y is positive the product is negative 
+    //if y is negative and x is positive the product is negative 
+  //if both x and y are positive
+
 var multiply = function(x, y) {
+  let sum = 0;
+
+  if( y === 0){
+    return sum;
+  }
+
+  if(x < 0 && y < 0){
+    x = -x;
+    y = -y;
+    sum = x;
+    return sum + multiply(x, y - 1);
+  } else if(x < 0 && y > 0){
+    sum = x;
+    return sum + multiply(x, y - 1);
+  } else if(y < 0 && x > 0){
+    sum = -x;
+    y = -y;
+    return sum + multiply(-x, y - 1);
+  }
+  sum = x;
+  return (sum + multiply(x , y - 1));
 };
 
 // 13. Write a function that divides two numbers without using the / operator or
 // Math methods.
-var divide = function(x, y) {
+//The test have a ~~ double Not Bitwise operator so only floored answers are accepted. No remainders
+
+var count;
+var divide = function(numerator, denominator) {
+  count = 0;
+  if(numerator < denominator){
+    return 0;
+  }
+  if(denominator === 0){
+    return NaN
+  }
+  if(denominator < 0){
+    divide(numerator + denominator, denominator);
+  } else {
+    divide(numerator - denominator, denominator);
+    count++;
+  }
+  return count;
 };
 
 // 14. Find the greatest common divisor (gcd) of two positive numbers. The GCD of two
@@ -196,7 +240,29 @@ var divide = function(x, y) {
 // gcd(4,36); // 4
 // http://www.cse.wustl.edu/~kjg/cse131/Notes/Recursion/recursion.html
 // https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/the-euclidean-algorithm
+
+/*
+  The greatest common divisor between two numbers can be found if you recursively subtract the other
+  number depending on if x or y is larger
+
+  if they are the same then return x
+  if x is greater than y subtract y from x 
+  if y is greater than x subtract x from y
+
+  the point is to subtract from each other until they reach the same number*/
+
+
 var gcd = function(x, y) {
+  if(x < 0 || y < 0){
+    return null;
+  }
+  if( x === y){
+    return x;
+  } else if ( x > y){
+    return gcd(x - y, y);
+  } else {
+    return gcd( x, y - x);
+  }
 };
 
 // 15. Write a function that compares each character of two strings and returns true if
@@ -204,21 +270,55 @@ var gcd = function(x, y) {
 // compareStr('house', 'houses') // false
 // compareStr('tomato', 'tomato') // true
 var compareStr = function(str1, str2) {
+  //if both strings length recursively becomes 0 then we have matching strings
+  if(str1.length === 0 && str2.length === 0){
+      return true;
+  }
+  //remove first characters and compare them and the length of the remaining strings
+  if(str1[0] === str2[0] && str1.length !== 0 && str2.length !== 0){
+    //recursive step with a parameter of the original string minus the first character
+    return compareStr(str1.substr(1), str2.substr(1));
+  } else {
+    //if both lengths are not equal to 0 then they fail. Not the same length
+    return false;
+  }
+  
 };
 
 // 16. Write a function that accepts a string and creates an array where each letter
 // occupies an index of the array.
 var createArray = function(str) {
+  let ar = [];
+  //base case
+  if (str.length === 0){
+    return ar;
+  }
+  //push and remove first character of string into array then recursively call with substring
+  ar.push(str[0]);
+  //making sure to concat all the calls to the stack when the pop back out.
+  return ar.concat(createArray(str.substr(1)));
 };
 
 // 17. Reverse the order of an array
 var reverseArr = function(array) {
+  let reversed = [];
+  if(array.length === 0){
+    return reversed;
+  }
+  reversed.push(array.pop());
+  return reversed.concat(reverseArr(array));
 };
 
 // 18. Create a new array with a given value and length.
 // buildList(0,5) // [0,0,0,0,0]
 // buildList(7,3) // [7,7,7]
 var buildList = function(value, length) {
+  let result = [];
+  if(length === 0){
+    return result;
+  }
+  result.push(value);
+  return result.concat(buildList(value, length - 1));
 };
 
 // 19. Implement FizzBuzz. Given integer n, return an array of the string representations of 1 to n.
@@ -227,12 +327,38 @@ var buildList = function(value, length) {
 // For numbers which are multiples of both three and five, output “FizzBuzz” instead of the number.
 // fizzBuzz(5) // ['1','2','Fizz','4','Buzz']
 var fizzBuzz = function(n) {
+  let result = [];
+  if(n === 0){
+    return result;
+  }
+
+  if(n%3 === 0 && n%5 === 0){
+    result.push('FizzBuzz');
+  } else if( n %3 === 0){
+    result.push('Fizz');
+  } else if( n %5 === 0){
+    result.push('Buzz');
+  }else {
+    result.push(n.toString(10));
+  }
+  return fizzBuzz(n - 1).concat(result);
 };
 
 // 20. Count the occurence of a value in a list.
 // countOccurrence([2,7,4,4,1,4], 4) // 3
 // countOccurrence([2,'banana',4,4,1,'banana'], 'banana') // 2
+var count;
 var countOccurrence = function(array, value) {
+  count = 0;
+  if (array.length === 0){
+    return count;
+  }
+  if(array.shift() === value){
+    count += 1;
+    return count + countOccurrence(array, value);
+  } else {
+    return count + countOccurrence(array, value);
+  }
 };
 
 // 21. Write a recursive version of map.
