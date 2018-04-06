@@ -98,6 +98,18 @@ var sumBelow = function(n) {
 // 6. Get the integers within a range (x, y).
 // range(2,9); // [3,4,5,6,7,8]
 var range = function(x, y) {
+  let int = [];
+  let step = x < y ? 1 : (-1);
+  if(x == y){
+    return int;
+  } else {
+    x = x + step;
+    if(x != y){
+      int.push(x);
+      return int.concat(range(x, y));
+    }
+    return int;
+  }
 };
 
 // 7. Compute the exponent of a number.
@@ -106,6 +118,7 @@ var range = function(x, y) {
 // exponent(4,3); // 64
 // https://www.khanacademy.org/computing/computer-science/algorithms/recursive-algorithms/a/computing-powers-of-a-number
 var exponent = function(base, exp) {
+  return exp == 0 ? 1: exp > 0 ? base * exponent(base, exp - 1) :1./( base / exponent(base, exp + 1));
 };
 
 // 8. Determine if a number is a power of two.
@@ -113,14 +126,36 @@ var exponent = function(base, exp) {
 // powerOfTwo(16); // true
 // powerOfTwo(10); // false
 var powerOfTwo = function(n) {
+  //divide n by 2 if its not less than or equal to 0, if you get to n being 1 after
+  //dividing it by 2 a few times.
+  return n <= 0 ? false : n === 1 ? true : powerOfTwo(n/2);
 };
 
 // 9. Write a function that reverses a string.
 var reverse = function(string) {
+  if(string.length === 0){
+    return '';
+  }
+  let char = string.substring(0,1);
+  string = string.replace(char, '');
+  return reverse(string) + char;  
 };
 
 // 10. Write a function that determines if a string is a palindrome.
 var palindrome = function(string) {
+  //base case 
+  if(string.length === 1 || string.length === 0){
+    return true;
+  }
+
+  //first and last character plus character removal
+  let fChar = string.substr(0,1).toLowerCase();
+  string = string.substring(1,).toLowerCase();
+  let lChar = string.substr(-1);
+  string = string.substr(0, string.length - 1);
+
+ 
+  return fChar === lChar ? palindrome(string) : false;
 };
 
 // 11. Write a function that returns the remainder of x divided by y without using the
@@ -129,6 +164,21 @@ var palindrome = function(string) {
 // modulo(17,5) // 2
 // modulo(22,6) // 4
 var modulo = function(x, y) {
+  if(y === 0){
+    return NaN;
+  }
+
+  if(x < 0) {
+    return -modulo(-x, y);
+  }
+  if(y < 0){
+    return modulo(x, -y);
+  }
+  if(y > x){ 
+    return x;
+  }
+
+  return modulo(x - y, y);
 };
 
 // 12. Write a function that multiplies two numbers without using the * operator or
