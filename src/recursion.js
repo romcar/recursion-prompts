@@ -364,6 +364,14 @@ var countOccurrence = function(array, value) {
 // 21. Write a recursive version of map.
 // rMap([1,2,3], timesTwo); // [2,4,6]
 var rMap = function(array, callback) {
+  let result = [];
+  let temp = array.slice();
+  if(array.length === 0){
+    return result;
+  }
+
+  result.push(callback(temp.shift()));
+  return result.concat(rMap(temp, callback));
 };
 
 // 22. Write a function that counts the number of times a key occurs in an object.
