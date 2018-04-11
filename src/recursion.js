@@ -648,6 +648,27 @@ var compress = function(list) {
 // itself.
 // augmentElements([[],[3],[7]], 5); // [[5],[3,5],[7,5]]
 var augmentElements = function(array, aug) {
+  //base case: if the item length = 0 add the aug
+  if(array.length === 0){
+    return array.concat([aug]);
+  }
+
+  //iterate through the array
+  for(var x = 0; x < array.length; x++){
+    //if the element is an array
+    if(Array.isArray(array[x])){
+      //make that element the return value of the recursive function.
+      /*this passes the element to the array removing a layer of the array brackets
+      and the aug as parameters. Once we reach a point where we can actually read 
+      the values we concat the aug to the array.*/
+      array[x] = augmentElements(array[x], aug);
+    } else {
+      return array.concat([aug]);
+    }
+  }
+
+  return array;
+
 };
 
 // 34. Reduce a series of zeroes to a single 0.
