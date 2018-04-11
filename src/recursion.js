@@ -423,17 +423,23 @@ var countValuesInObj = function(obj, value) {
 // 24. Find all keys in an object (and nested objects) by a provided name and rename
 // them to a provided new name while preserving the value stored at that key.
 var replaceKeysInObj = function(obj, oldKey, newKey) {
+  //iterate through object
   for(var key in obj){
 
+    //if the object at this key is holding another object recurse the function 
+    //making the value of the return the objs new value
     if(obj[key].constructor === {}.constructor){
       obj[key] = replaceKeysInObj(obj[key], oldKey, newKey);
     }
 
+    //if the key is the correct one we are looking for, make a new property with the newKey
+    //name and place the value of the old key into it then delete the old key. 
     if(key === oldKey){
       obj[newKey] = obj[key];
       delete obj[key];
     } 
-  }
+  }//finish iteration
+
   return obj;
 };
 
