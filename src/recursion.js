@@ -568,6 +568,29 @@ var nestedEvenSum = function(obj) {
 // 30. Flatten an array containing nested arrays.
 // flatten([1,[2],[3,[[4]]],5]); // [1,2,3,4,5]
 var flatten = function(array) {
+  //create temp array
+  let temp = [];
+
+  //base case
+  if(array.length === 0){
+    return temp;
+  }
+
+  //iterate through array
+  for(var x = 0; x < array.length; x++){
+    //if the array is another array recurse and concat answers
+    if(array[x].constructor === [].constructor){
+      //I keep forgetting that temp.concat does not modify the array. It returns a new
+      //concatted array
+      temp = temp.concat(flatten(array[x]))
+    } else {
+      //if the element is not an array push it into the temp
+      temp.push(array[x]);
+    }
+  }
+  //lastly return temp
+  return temp;
+
 };
 
 // 31. Given a string, return an object containing tallies of each letter.
