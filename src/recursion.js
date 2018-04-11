@@ -627,6 +627,21 @@ var letterTally = function(str, obj) {
 // compress([1,2,2,3,4,4,5,5,5]) // [1,2,3,4,5]
 // compress([1,2,2,3,4,4,2,5,5,5,4,4]) // [1,2,3,4,2,5,4]
 var compress = function(list) {
+  let temp = list.slice();
+  //if the list is empty return empty array
+  if(temp.length === 0){
+    return [];
+  }
+  //if the first item and the second item are not the same then 
+  //add the first item into an explicit array and concat the rest
+  //recursively
+  if(temp[0] !== temp[0+1]){
+    return [temp[0]].concat(compress(temp.slice(1)));
+  } else {
+    //if they are the same then do not add the first item and concat the 
+    //rest recursively
+    return [].concat(compress(temp.slice(1)));
+  }
 };
 
 // 33. Augument every element in a list with a new value where each element is an array
