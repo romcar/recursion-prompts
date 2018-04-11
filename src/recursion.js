@@ -449,6 +449,22 @@ var replaceKeysInObj = function(obj, oldKey, newKey) {
 // fibonacci(5); // [0,1,1,2,3,5]
 // Note: The 0 is not counted.
 var fibonacci = function(n) {
+  //n = 0 theres nothing to do.
+  if (n <= 0){
+    return null;
+  }
+
+  //n = 1? return [0, 1]. This way we can take into account the zero
+  if (n ===  1){
+    //we want an array of values so we return an array as the base case 
+    return [0, 1];
+  } else {
+    //this array gets placed in here
+    let fib = fibonacci(n - 1);
+    //them more calculations are pushed in before they are returned to the stack that called them.
+    fib.push(fib[fib.length - 1]+ fib[fib.length -2]);
+    return fib;
+  }
 };
 
 // 26. Return the Fibonacci number located at index n of the Fibonacci sequence.
@@ -457,12 +473,45 @@ var fibonacci = function(n) {
 // nthFibo(7); // 13
 // nthFibo(3); // 2
 var nthFibo = function(n) {
+  //no negatives
+  if( n < 0){
+    return null;
+  }
+
+  if( n === 0 ){
+    return 0;
+  } else if( n === 1 ){
+    return 1;
+    //I did 3 instead of two because the fibonacci number for n = 3 is 2 which is just n - 1
+  } else if( n <=3){
+    return n - 1;
+  } else {
+    return nthFibo(n - 1) + nthFibo(n - 2);
+  }
+
+
 };
 
 // 27. Given an array of words, return a new array containing each word capitalized.
 // var words = ['i', 'am', 'learning', 'recursion'];
 // capitalizedWords(words); // ['I', 'AM', 'LEARNING', 'RECURSION']
 var capitalizeWords = function(array) {
+  //create temp array
+  let temp = [];
+
+  //base case: if array.length = 0
+  if(array.length === 0){
+    return temp;
+  }
+
+  //remove first item
+  let word = array.shift();
+  //capitalize word and push into temp
+  temp.push(word.toUpperCase());
+  //return concat of recursive method with rest of array (recursive)
+  return temp.concat(capitalizeWords(array));
+
+  //completed in 1 shot
 };
 
 // 28. Given an array of strings, capitalize the first letter of each index.
