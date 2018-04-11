@@ -675,6 +675,21 @@ var augmentElements = function(array, aug) {
 // minimizeZeroes([2,0,0,0,1,4]) // [2,0,1,4]
 // minimizeZeroes([2,0,0,0,1,0,0,4]) // [2,0,1,0,4]
 var minimizeZeroes = function(array) {
+  //base case
+  if(array.length === 0){
+    return [];
+  }
+  //copy of array
+  let temp = array.slice();
+
+  //if the first and second elements are 0 then dont add the first to the recursive
+  //return statement
+  if(temp[0] === 0 && temp[1] === 0){
+    return [].concat(minimizeZeroes(array.slice(1)));
+  }
+  //else just add the first one in an explicit array notation and concat the rest
+  //recursively from there
+  return [temp[0]].concat(minimizeZeroes(array.slice(1)));
 };
 
 // 35. Alternate the numbers in an array between positive and negative regardless of
@@ -682,6 +697,7 @@ var minimizeZeroes = function(array) {
 // alternateSign([2,7,8,3,1,4]) // [2,-7,8,-3,1,-4]
 // alternateSign([-2,-7,8,3,-1,4]) // [2,-7,8,-3,1,-4]
 var alternateSign = function(array) {
+  
 };
 
 // 36. Given a string, return a string with digits converted to their word equivalent.
