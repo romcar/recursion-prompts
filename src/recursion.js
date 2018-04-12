@@ -724,26 +724,35 @@ var alternateSign = function(array) {
 // numToText("I have 5 dogs and 6 ponies"); // "I have five dogs and six ponies"
 var numToText = function(str) {
   if(str === ''){
-    return [];
+    return '';
   }
+
   let stringNumbers = { 
     0: 'zero', 1: 'one', 2: 'two',
     3: 'three', 4: 'four', 5: 'five',
     6: 'six', 7: 'seven', 8: 'eight',
     9: 'nine', 10: 'ten'};
 
-  let wordsInString = str.split(' ');
-  let word = wordsInString.shift();
+  if(str.includes(' ')){
+    let word = str.substring(0, str.indexOf(' '));
+    str = str.trim();
+    console.log(str)
 
-  if(stringNumbers.hasOwnProperty(word)){
-    return [stringNumbers[word]].concat(numToText);
+    if(stringNumbers.hasOwnProperty(word)){
+      return stringNumbers[word] + ' ' + str.slice(str.indexOf(' ')+1);
+    } else {
+      return word + ' ' + str.slice(str.indexOf(' ')+1);
+    }
   } else {
-    return numToText(wordsInString.slice(1));
+    if(stringNumbers.hasOwnProperty(str)){
+      return stringNumbers[str];
+    } else {
+      return str;
+    }
   }
-  return wordsInString.join(' ');
+
+
 };
-
-
 // *** EXTRA CREDIT ***
 
 // 37. Return the number of times a tag occurs in the DOM.
