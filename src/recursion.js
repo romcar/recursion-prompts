@@ -727,28 +727,37 @@ var numToText = function(str) {
     return '';
   }
 
+  //since the amount of numbers allowed to be transformed is so minimal
+  //I made an object with key:value of those numbers
   let stringNumbers = { 
     0: 'zero', 1: 'one', 2: 'two',
     3: 'three', 4: 'four', 5: 'five',
     6: 'six', 7: 'seven', 8: 'eight',
     9: 'nine', 10: 'ten'};
 
+  //is the string a multi-worded string?
   if(str.includes(' ')){
+    //find the first space and take all the characters before that
     let word = str.substring(0, str.indexOf(' '));
-    str = str.trim();
-    console.log(str)
 
+    //remove it from the string and trim the space off the string
+    str = str.slice(str.indexOf(' ')).trim();
+
+    //if the value of the word that we have currently is inside our object
+    //switch out the word with the text equivalent and do the same to the 
+    //rest of the string
     if(stringNumbers.hasOwnProperty(word)){
-      return stringNumbers[word] + ' ' + str.slice(str.indexOf(' ')+1);
+      return stringNumbers[word] + ' ' + numToText(str);
     } else {
-      return word + ' ' + str.slice(str.indexOf(' ')+1);
+      return word + ' ' + numToText(str);
     }
   } else {
+
     if(stringNumbers.hasOwnProperty(str)){
       return stringNumbers[str];
     } else {
       return str;
-    }
+    }//end if
   }
 
 
