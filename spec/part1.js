@@ -1868,11 +1868,8 @@
         expect(alternateSign(input2)).to.not.equal(input2);
       });
 
-<<<<<<< HEAD
-      it('alternates sign', function() {
-=======
+
       it('should alternate signs', function() {
->>>>>>> upstream/master
         expect(alternateSign(input1)).to.eql([2,-7,8,-3,1,-4]);
         expect(alternateSign(input2)).to.eql([2,-7,8,-3,1,-4]);
       });
