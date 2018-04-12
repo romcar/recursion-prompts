@@ -707,12 +707,12 @@ var alternateSign = function(array) {
   //if array length is odd make the element positive 
   if(array.length%2 !== 0){
     //is the number positive 
-    return [element > 0 ? 0-element: element].concat(alternateSign(temp));
+    return [element > 0 ? 0-element : element].concat(alternateSign(temp));
   } else {
     //if the array length is even make the element positive
 
     //is the element negative
-    return [element < 0 ? 0-element : element].concat(alternateSign(temp));
+    return [element < 0 ? 0-element: element].concat(alternateSign(temp));
   }
   
   return temp;
