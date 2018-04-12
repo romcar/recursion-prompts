@@ -704,15 +704,15 @@ var alternateSign = function(array) {
     return [];
   }
 
-  //if array length is even make the element positive 
-  if(array.length%2 === 0){
-    //is the number negative 
-    return [element < 0 ? 0-element: element].concat(alternateSign(temp));
+  //if array length is odd make the element positive 
+  if(array.length%2 !== 0){
+    //is the number positive 
+    return [element > 0 ? 0-element: element].concat(alternateSign(temp));
   } else {
-    //if the array length is odd make the element negative
+    //if the array length is even make the element positive
 
-    //is the element positive
-    return [element > 0 ? 0-element : element].concat(alternateSign(temp));
+    //is the element negative
+    return [element < 0 ? 0-element : element].concat(alternateSign(temp));
   }
   
   return temp;
